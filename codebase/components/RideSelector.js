@@ -19,15 +19,17 @@ const basePrice = 1542;
 const RideSelector = () => {
   const [carList, setCarList] = useState([]);
   useEffect(() => {
-    async () => {
+    (async () => {
       try {
         const response = await fetch("/api/db/getRideTypes");
+
         const data = await response.json();
-        setCarList(data.data[0]);
+        setCarList(data.data);
+        setSelectedRide(data.data[0]);
       } catch (error) {
         console.error(error);
       }
-    };
+    })();
   }, []);
 
   return (

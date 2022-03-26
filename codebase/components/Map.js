@@ -1,5 +1,6 @@
 import React from "react";
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
+import { UberContext } from "../context/uberContext";
 import mapboxgl from "mapbox-gl";
 const style = {
   wrapper: `flex-1 h-full w-full`,

@@ -25,7 +25,7 @@ const RideSelector = () => {
 
         const data = await response.json();
         setCarList(data.data);
-        setSelectedRide(data.data[0]);
+        setSelectedRide(data.data);
       } catch (error) {
         console.error(error);
       }

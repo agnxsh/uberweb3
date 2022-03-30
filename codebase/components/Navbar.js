@@ -2,6 +2,8 @@ import React from "react";
 import Image from "next/image";
 import avatar from "../temp/d-avatar.jpg";
 import { BsPerson } from "react-icons/bs";
+import { useContext } from "react";
+import { UberContext } from "../context/uberContext";
 import { RiShieldUserFill } from "react-icons/ri";
 const style = {
   wrapper: `h-16 w-full bg-black text-white flex md:justify-around items-center px-60 fixed z-20`,
@@ -15,7 +17,6 @@ const style = {
   loginText: `ml-2`,
 };
 
-const currentAccount = "0x9D02406491E920ff3E2b49BB4470352a751D755c";
 const Navbar = () => {
   return (
     <div className={style.wrapper}>

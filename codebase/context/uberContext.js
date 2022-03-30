@@ -6,6 +6,25 @@ export const UberProvider = ({ children }) => {
   const [dropoff, setDropoff] = useState("");
   const [pickupCoordinates, setPickupCoordinates] = useState();
   const [dropoffCoordinates, setDropoffCoordinates] = useState();
+  const [currentAccount, setCurrentAccount] = useState();
+  let metamask;
+
+  if (typeof window !== "undefined") {
+    metamask = window.ethereum;
+  }
+
+  const checkIfWalletIsConnected = async () => {
+    if (!window.ethereum) return;
+    try {
+      const addressArray = await window.ethereum.request({
+        method: "eth_accounts",
+      });
+      if (addressArray.length > 0) {
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const createLocaitonCoordinatePromise = (locationName, locationType) => {
     return new Promise(async (resolve, reject) => {

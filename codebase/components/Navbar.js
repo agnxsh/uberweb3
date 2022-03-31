@@ -18,7 +18,8 @@ const style = {
 };
 
 const Navbar = () => {
-  const { currentAccount, connectWallet } = useContext(UberContext);
+  const { currentAccount, connectWallet, currentUser } =
+    useContext(UberContext);
   return (
     <div className={style.wrapper}>
       <div className={style.leftMenu}>
@@ -29,7 +30,7 @@ const Navbar = () => {
       </div>
       <div className={style.rightMenu}>
         <div className={style.menuItem}>Help</div>
-        <div className={style.menuItem}>Agnish</div>
+        <div className={style.menuItem}>{currentUser.name?.split(" ")[0]}</div>
         <div className={style.userImageContainer}>
           <RiShieldUserFill className={style.userImage} />
         </div>
@@ -39,7 +40,7 @@ const Navbar = () => {
             {currentAccount.slice(0, 6)}...{currentAccount.slice(39)}
           </div>
         ) : (
-          <div className={style.loginButton}>
+          <div className={style.loginButton} onClick={() => connectWallet()}>
             <BsPerson />
             <span className={style.loginText}>Log in</span>
           </div>

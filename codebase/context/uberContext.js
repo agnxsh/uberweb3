@@ -9,7 +9,7 @@ export const UberProvider = ({ children }) => {
   const [pickupCoordinates, setPickupCoordinates] = useState();
   const [dropoffCoordinates, setDropoffCoordinates] = useState();
   const [currentAccount, setCurrentAccount] = useState();
-  const [currentUser, setCurrentUser] = useState();
+  const [currentUser, setCurrentUser] = useState([]);
   let metamask;
 
   if (typeof window !== "undefined") {

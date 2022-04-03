@@ -10,6 +10,8 @@ export const UberProvider = ({ children }) => {
   const [dropoffCoordinates, setDropoffCoordinates] = useState();
   const [currentAccount, setCurrentAccount] = useState();
   const [currentUser, setCurrentUser] = useState([]);
+  const [price, setPrice] = useState();
+  const [selectedRide, setSelectedRide] = useState();
   let metamask;
 
   if (typeof window !== "undefined") {
@@ -57,28 +59,33 @@ export const UberProvider = ({ children }) => {
 
   const createLocaitonCoordinatePromise = (locationName, locationType) => {
     return new Promise(async (resolve, reject) => {
-      const response = await fetch("api/map/getLocationCoordinates", {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify({
-          location: locationName,
-        }),
-      });
-      const data = await response.json();
+      try {
+        const response = await fetch("api/map/getLocationCoordinates", {
+          method: "POST",
+          headers: {
+            "Content-type": "application/json",
+          },
+          body: JSON.stringify({
+            location: locationName,
+          }),
+        });
+        const data = await response.json();
 
-      if ((data.message = "success")) {
-        switch (locationType) {
-          case "pickup":
-            setPickupCoordinates(data.data);
-            break;
-          case "dropoff":
-            setDropoffCoordinates(data.data);
-            break;
+        if ((data.message = "success")) {
+          switch (locationType) {
+            case "pickup":
+              setPickupCoordinates(data.data);
+              break;
+            case "dropoff":
+              setDropoffCoordinates(data.data);
+              break;
+          }
+          resolve();
+        } else {
+          reject();
         }
-        resolve();
-      } else {
+      } catch (error) {
+        console.log(error);
         reject();
       }
     });
@@ -139,6 +146,10 @@ export const UberProvider = ({ children }) => {
         connectWallet,
         currentAccount,
         currentUser,
+        price,
+        setPrice,
+        selectedRide,
+        setSelectedRide,
       }}
     >
       {children}

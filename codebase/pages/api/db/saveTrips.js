@@ -2,6 +2,20 @@ import { client } from "../../../lib/sanity";
 
 const saveTrips = async (req, res) => {
   try {
+    const tripDoc = {
+      _type: "trips",
+      _id: `${req.body.userWalletAddress}-${Date.now()}`,
+      pickup: req.body.pickupLocation,
+      dropoff: req.body.dropoffLocation,
+      rideTimeStamp: new Date(Date.now()).toISOString(),
+      passenger: {
+        _key: `passenger-${req.body.userWalletAddress}-${new Data(
+          Date.now()
+        ).toISOString()}`,
+        _ref: req.body.userWalletAddress,
+        _type: "reference",
+      },
+    };
   } catch (error) {
     res.status(500).send({ message: "error", data: error.message });
   }

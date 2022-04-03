@@ -9,7 +9,8 @@ const style = {
   confirmButton: `bg-black text-white m-4 py-4 text-center text-xl`,
 };
 const Confirm = () => {
-  const { currentAccount, pickup, dropoff } = useContext(UberContext);
+  const { currentAccount, pickup, dropoff, price, selectedRide } =
+    useContext(UberContext);
   const storeTripDetails = async (pickup, dropoff) => {
     try {
       await fetch("/api/db/saveTrips", {
@@ -20,6 +21,9 @@ const Confirm = () => {
         body: JSON.stringify({
           pickupLocation: pickup,
           dropoffLocation: dropoff,
+          userWalletAddress: currentAccount,
+          price: price,
+          selectedRide: selectedRide,
         }),
       });
     } catch (error) {

@@ -147,9 +147,7 @@ export const UberProvider = ({ children }) => {
         currentAccount,
         currentUser,
         price,
-        setPrice,
         selectedRide,
-        setSelectedRide,
       }}
     >
       {children}

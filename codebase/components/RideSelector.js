@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import ethLogo from "../assets/eth-logo.png";
+import { useEffect, useContext, useState } from "react";
+import { UberContext } from "../context/uberContext";
+
 const style = {
   wrapper: `h-full flex flex-col`,
   title: `text-gray-500 text-center text-xs py-2 border-b`,
-  carList: `flex flex-col flex-1 overflow-scroll scrollbar-hide`,
+  carList: `flex flex-col flex-1 overflow-scroll`,
   car: `flex p-3 m-2 items-center border-2 border-white`,
   selectedCar: `border-2 border-black flex p-3 m-2 items-center`,
   carImage: `h-14`,
@@ -14,10 +16,14 @@ const style = {
   priceContainer: `flex items-center`,
   price: `mr-[-0.8rem]`,
 };
-const basePrice = 1542;
 
 const RideSelector = () => {
-  const [carList, setCarList, selectedRide] = useState([]);
+  const [carList, setCarList] = useState([]);
+  const { selectedRide, setSelectedRide, setPrice, basePrice } =
+    useContext(UberContext);
+
+  console.log(basePrice);
+
   useEffect(() => {
     (async () => {
       try {
@@ -44,6 +50,12 @@ const RideSelector = () => {
                 ? style.selectedCar
                 : style.car
             }`}
+            onClick={() => {
+              setSelectedRide(car);
+              setPrice(
+                ((basePrice / 10 ** 5) * car.priceMultiplier).toFixed(5)
+              );
+            }}
           >
             <Image
               src={car.iconUrl}

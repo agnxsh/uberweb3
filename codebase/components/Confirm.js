@@ -9,8 +9,15 @@ const style = {
   confirmButton: `bg-black text-white m-4 py-4 text-center text-xl`,
 };
 const Confirm = () => {
-  const { currentAccount, pickup, dropoff, price, selectedRide } =
-    useContext(UberContext);
+  const {
+    currentAccount,
+    pickup,
+    dropoff,
+    price,
+    selectedRide,
+    pickupCoordinates,
+    dropoffCoordinates,
+  } = useContext(UberContext);
   const storeTripDetails = async (pickup, dropoff) => {
     try {
       await fetch("/api/db/saveTrips", {
@@ -33,14 +40,16 @@ const Confirm = () => {
   return (
     <div className={style.wrapper}>
       <div className={style.rideSelectorContainer}>
-        <RideSelector />
+        {pickupCoordinates && dropoffCoordinates && <RideSelector />}
       </div>
       <div className={style.confirmButtonContainer}>
-        <div
-          className={style.confirmButton}
-          onClick={() => storeTripDetails(pickup, dropoff)}
-        >
-          Confirm UberX
+        <div className={style.confirmButtonContainer}>
+          <div
+            className={style.confirmButton}
+            onClick={() => storeTripDetails(pickup, dropoff)}
+          >
+            Confirm {selectedRide.service || "UberX"}
+          </div>
         </div>
       </div>
     </div>

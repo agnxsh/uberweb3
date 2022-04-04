@@ -20,7 +20,7 @@ const style = {
 const Navbar = () => {
   const { currentAccount, connectWallet, currentUser } =
     useContext(UberContext);
-  console.log(currentUser);
+
   return (
     <div className={style.wrapper}>
       <div className={style.leftMenu}>

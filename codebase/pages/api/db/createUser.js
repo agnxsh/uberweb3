@@ -10,9 +10,9 @@ const createUserInSanity = async (req, res) => {
     };
 
     await client.createIfNotExists(userDoc);
-    req.status(200).send({ message: "success" });
+    res.status(200).send({ message: "success" });
   } catch (error) {
-    req.status(500).send({ message: "error", data: error.message });
+    res.status(500).send({ message: "error", data: error.message });
   }
 };
 

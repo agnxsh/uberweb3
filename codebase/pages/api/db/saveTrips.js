@@ -7,11 +7,11 @@ const saveTrips = async (req, res) => {
       _id: `${req.body.userWalletAddress}-${Date.now()}`,
       pickup: req.body.pickupLocation,
       dropoff: req.body.dropoffLocation,
-      rideTimeStamp: new Date(Date.now()).toISOString(),
+      rideTimestamp: new Date(Date.now()).toISOString(),
       price: parseFloat(req.body.price),
       rideCategory: req.body.selectedRide.service,
       passenger: {
-        _key: `passenger-${req.body.userWalletAddress}-${new Data(
+        _key: `passenger-${req.body.userWalletAddress} - ${new Date(
           Date.now()
         ).toISOString()}`,
         _ref: req.body.userWalletAddress,
@@ -20,6 +20,8 @@ const saveTrips = async (req, res) => {
     };
 
     await client.createIfNotExists(tripDoc);
+
+    res.status(200).send({ message: "success" });
   } catch (error) {
     res.status(500).send({ message: "error", data: error.message });
   }

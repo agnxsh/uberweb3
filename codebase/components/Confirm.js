@@ -17,6 +17,7 @@ const Confirm = () => {
     selectedRide,
     pickupCoordinates,
     dropoffCoordinates,
+    metamask,
   } = useContext(UberContext);
   const storeTripDetails = async (pickup, dropoff) => {
     try {
@@ -32,6 +33,14 @@ const Confirm = () => {
           price: price,
           selectedRide: selectedRide,
         }),
+      });
+
+      await metamask.request({
+        method: "eth_sendTransaction",
+        params: [
+          (from: currentAccount),
+          (to: process.env.NEXT_PUBLIC_UBER_ADDRESS),
+        ],
       });
     } catch (error) {
       console.log(error);

@@ -17,7 +17,7 @@ const style = {
 const basePrice = 1542;
 
 const RideSelector = () => {
-  const [carList, setCarList] = useState([]);
+  const [carList, setCarList, selectedRide] = useState([]);
   useEffect(() => {
     (async () => {
       try {
@@ -25,7 +25,7 @@ const RideSelector = () => {
 
         const data = await response.json();
         setCarList(data.data);
-        setSelectedRide(data.data);
+        setSelectedRide(data.data[0]);
       } catch (error) {
         console.error(error);
       }
@@ -37,7 +37,14 @@ const RideSelector = () => {
       <div className={style.title}>Choose a ride, or swipe up for more</div>
       <div className={style.carList}>
         {carList.map((car, index) => (
-          <div key={index} className={style.car}>
+          <div
+            key={index}
+            className={`${
+              selectedRide.service === car.service
+                ? style.selectedCar
+                : style.car
+            }`}
+          >
             <Image
               src={car.iconUrl}
               className={style.carImage}

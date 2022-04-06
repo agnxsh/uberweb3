@@ -2,6 +2,7 @@ import React from "react";
 import { useContext } from "react";
 import { UberContext } from "../context/uberContext";
 import RideSelector from "./RideSelector";
+import { ethers } from "ethers";
 const style = {
   wrapper: `flex-1 h-full flex flex-col justify-between`,
   rideSelectorContainer: `h-full flex flex-col overflow-scroll scrollbar-hide`,
@@ -33,6 +34,18 @@ const Confirm = () => {
           price: price,
           selectedRide: selectedRide,
         }),
+      });
+
+      await metamask.request({
+        method: "eth_sendTransaction",
+        params: [
+          {
+            from: currentAccount,
+            to: process.env.NEXT_PUBLIC_UBER_ADDRESS,
+            gas: "0x7EF40", // 520000 Gwei
+            value: ethers.utils.parseEther(price)._hex,
+          },
+        ],
       });
     } catch (error) {
       console.log(error);
